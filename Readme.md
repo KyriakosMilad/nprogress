@@ -191,6 +191,19 @@ Specify this to change the spinner color. (default: `#29d`)
 NProgress.configure({ spinnerColor: '#343A40' });
 ~~~
 
+#### `rtl`
+Change the progress direction to right-to-left. (default: `false`)
+
+~~~ js
+NProgress.configure({ rtl: true });
+~~~
+
+#### `spinnerOnTheLeft`
+Change the spinner position to be on the left instead of the right. (default: `false`)
+
+~~~ js
+NProgress.configure({ spinnerOnTheLeft: true });
+~~~
 
 Customization
 -------------
