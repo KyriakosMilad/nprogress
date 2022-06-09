@@ -254,9 +254,11 @@
     });
 
     // set fancy blur color to the left if rtl is true
-    css(progress.querySelector('.peg'), {
-      left: 0
-    });
+    if (NProgress.settings.rtl) {
+      css(progress.querySelector('.peg'), {
+        left: 0
+      });
+    }
 
     if (!Settings.showSpinner) {
       spinner = progress.querySelector(Settings.spinnerSelector);
@@ -271,10 +273,12 @@
       });
 
       // set spinner position to left if spinnerOnTheLeft is true
-      css(spinner, {
-        right: 0,
-        left: '15px'
-      });
+      if (NProgress.settings.spinnerOnTheLeft) {
+        css(spinner, {
+          right: 0,
+          left: '15px'
+        });
+      }
     }
 
     if (parent != document.body) {
