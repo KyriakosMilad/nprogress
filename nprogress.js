@@ -23,6 +23,7 @@
     speed: 200,
     trickle: true,
     trickleSpeed: 200,
+    rtl: false,
     barColor: '#29d',
     showSpinner: true,
     barSelector: '[role="bar"]',
@@ -69,9 +70,9 @@
     NProgress.status = (n === 1 ? null : n);
 
     var progress = NProgress.render(!started),
-        bar      = progress.querySelector(Settings.barSelector),
-        speed    = Settings.speed,
-        ease     = Settings.easing;
+      bar      = progress.querySelector(Settings.barSelector),
+      speed    = Settings.speed,
+      ease     = Settings.easing;
 
     progress.offsetWidth; /* Repaint */
 
@@ -206,10 +207,10 @@
       $promise.always(function() {
         current--;
         if (current === 0) {
-            initial = 0;
-            NProgress.done();
+          initial = 0;
+          NProgress.done();
         } else {
-            NProgress.set((initial - current) / initial);
+          NProgress.set((initial - current) / initial);
         }
       });
 
@@ -235,12 +236,12 @@
 
 
     var bar = progress.querySelector(Settings.barSelector),
-        perc = fromStart ? '-100' : toBarPerc(NProgress.status || 0),
-        parent = isDOM(Settings.parent)
-          ? Settings.parent
-          : document.querySelector(Settings.parent),
-        spinner,
-        spinnerIconSelector
+      perc = fromStart ? toBarPerc(0) : toBarPerc(NProgress.status || 0),
+      parent = isDOM(Settings.parent)
+        ? Settings.parent
+        : document.querySelector(Settings.parent),
+      spinner,
+      spinnerIconSelector
 
     css(bar, {
       transition: 'all 0 linear',
@@ -306,9 +307,9 @@
 
     // Sniff prefixes
     var vendorPrefix = ('WebkitTransform' in bodyStyle) ? 'Webkit' :
-                       ('MozTransform' in bodyStyle) ? 'Moz' :
-                       ('msTransform' in bodyStyle) ? 'ms' :
-                       ('OTransform' in bodyStyle) ? 'O' : '';
+      ('MozTransform' in bodyStyle) ? 'Moz' :
+        ('msTransform' in bodyStyle) ? 'ms' :
+          ('OTransform' in bodyStyle) ? 'O' : '';
 
     if (vendorPrefix + 'Perspective' in bodyStyle) {
       // Modern browsers with 3D support, e.g. Webkit, IE10
@@ -350,6 +351,7 @@
    */
 
   function toBarPerc(n) {
+    if (NProgress.settings.rtl) return (1 - n) * 100;
     return (-1 + n) * 100;
   }
 
@@ -405,7 +407,7 @@
 
   var css = (function() {
     var cssPrefixes = [ 'Webkit', 'O', 'Moz', 'ms' ],
-        cssProps    = {};
+      cssProps    = {};
 
     function camelCase(string) {
       return string.replace(/^-ms-/, 'ms-').replace(/-([\da-z])/gi, function(match, letter) {
@@ -418,8 +420,8 @@
       if (name in style) return name;
 
       var i = cssPrefixes.length,
-          capName = name.charAt(0).toUpperCase() + name.slice(1),
-          vendorName;
+        capName = name.charAt(0).toUpperCase() + name.slice(1),
+        vendorName;
       while (i--) {
         vendorName = cssPrefixes[i] + capName;
         if (vendorName in style) return vendorName;
@@ -440,8 +442,8 @@
 
     return function(element, properties) {
       var args = arguments,
-          prop,
-          value;
+        prop,
+        value;
 
       if (args.length == 2) {
         for (prop in properties) {
@@ -469,7 +471,7 @@
 
   function addClass(element, name) {
     var oldList = classList(element),
-        newList = oldList + name;
+      newList = oldList + name;
 
     if (hasClass(oldList, name)) return;
 
@@ -483,7 +485,7 @@
 
   function removeClass(element, name) {
     var oldList = classList(element),
-        newList;
+      newList;
 
     if (!hasClass(element, name)) return;
 
