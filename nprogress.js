@@ -24,6 +24,7 @@
     trickle: true,
     trickleSpeed: 200,
     rtl: false,
+    spinnerOnTheLeft: false,
     barColor: '#29d',
     showSpinner: true,
     barSelector: '[role="bar"]',
@@ -267,7 +268,13 @@
       css(spinnerIconSelector, {
         borderTopColor: Settings.spinnerColor,
         borderLeftColor: Settings.spinnerColor
-      })
+      });
+
+      // set spinner position to left if spinnerOnTheLeft is true
+      css(spinner, {
+        right: 0,
+        left: '15px'
+      });
     }
 
     if (parent != document.body) {
