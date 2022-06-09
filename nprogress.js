@@ -233,8 +233,6 @@
     progress.id = 'nprogress';
     progress.innerHTML = Settings.template;
 
-
-
     var bar = progress.querySelector(Settings.barSelector),
       perc = fromStart ? toBarPerc(0) : toBarPerc(NProgress.status || 0),
       parent = isDOM(Settings.parent)
@@ -252,6 +250,11 @@
     // set fancy blur effect color
     css(progress.querySelector('.peg'), {
       boxShadow: `0 0 10px ${Settings.barColor}, 0 0 5px ${Settings.barColor}`
+    });
+
+    // set fancy blur color to the left if rtl is true
+    css(progress.querySelector('.peg'), {
+      left: 0
     });
 
     if (!Settings.showSpinner) {
